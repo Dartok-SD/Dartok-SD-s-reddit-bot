@@ -1,4 +1,4 @@
-#!D:\RedditBot\venv\Scripts\python.exe
+#!D:\RedditBot\Dartok-SD-s-reddit-bot\venv\Scripts\python.exe
 
 import argparse
 import code
