@@ -1,4 +1,5 @@
 import SetUpPraw
+import praw
 import NameDifference
 import sqlite3
 import time
@@ -16,13 +17,21 @@ def create_table(cursor):
 	cursor.execute('''CREATE TABLE submissions
              (real submitted, Title text, Link text, TextBody text)''')
 
-def insert_table(cursor,submission):
+def insert_table(cursor,submission,conn):
 	# submission.title
 	# submission.selftext
 	# submission.url
 	currentTime = time.time()
-	insertTable = [currentTime,submission.title,submission.url,submission.selftext]
+	editedSubmissionUrl = submission.url
+	if(editedSubmissionUrl[-2:] == '/1'):
+		editedSubmissionUrl = editedSubmissionUrl[:-2]
+	insertTable = [currentTime,submission.title,editedSubmissionUrl,submission.selftext]
 	cursor.execute('INSERT INTO submissions VALUES(?,?,?,?)',insertTable)
+	conn.commit()
+	
+def message_person(reddit,person,content):
+	redditor = reddit.redditor(name=person)
+	redditor.message('New Manga Chapter', content + ' has just been released')
 
 def empty_db_thread(cursor):
 	currentTime = time.time()
@@ -33,10 +42,9 @@ def empty_db_thread(cursor):
 if __name__ == '__main__':
 	fileName = 'TestTracking.txt'
 	subreddit = 'manga'
-	raw = SetUpPraw.setUp()
-	sub = raw.subreddit(subreddit)
+	reddit = SetUpPraw.setUp()
+	sub = reddit.subreddit(subreddit)
 	lineList = [line.rstrip('\n') for line in open(fileName)]
-	
 	conn = create_connection("SubmissionDatabase.db")
 	c = conn.cursor()
 	# create_table(c)
@@ -44,6 +52,6 @@ if __name__ == '__main__':
 	for submission in sub.stream.submissions(skip_existing = True):
 		# print(submission.title)
 		if any(word in submission.title for word in lineList):
-			insert_table(c, submission)
-			conn.commit()
+			insert_table(c, submission,conn)
 			print(submission.title)
+			# message_person(reddit, "Dartok_sd",submission.title)
