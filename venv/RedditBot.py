@@ -39,6 +39,7 @@ def message_person(reddit,person,content, link):
 	redditor = reddit.redditor(name=person)
 	redditor.message('New Manga Chapter', content + ' has just been released: ' + link)
 
+# Do I really need to remove from the database?
 def empty_db_thread(cursor):
 	currentTime = time.time()
 	# There are 86400 seconds in a day
@@ -63,11 +64,10 @@ if __name__ == '__main__':
 			if(insert_table(c, submission,conn)):
 				print(submission.title)
 				# message_person(reddit, "Dartok_sd",submission.title,submission.url)
-			if any((word in submission.title for word in lineList)):
-				print(submission.title)
+			if any((word in submission.title for word in myFile)):
 				message_person(reddit, "Dartok_sd", submission.title, submission.url)
-		if any((word in submission.title for word in lineList)):
-			if(insert_table(c, submission, conn)):
-				print(submission.title)
-				message_person(reddit, "Dartok_sd", submission.title, submission.url)
-				
+		# if any((word in submission.title for word in myFile)):
+		# 	if(insert_table(c, submission, conn)):
+		# 		print(submission.title)
+		# 		message_person(reddit, "Dartok_sd", submission.title, submission.url)
+		#
