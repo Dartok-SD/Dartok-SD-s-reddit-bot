@@ -12,6 +12,10 @@ in RedditBot.py with:
 ```
 clientId = 'Your Client ID'
 clientSecret = 'Your Client Secret'
-raw = praw.Reddit(user_agent='User Agent Name', client_id=clientId, client_secret=clientSecret)
+raw = praw.Reddit(user_agent='User Agent Name', 
+                  client_id=clientId,
+                  client_secret=clientSecret
+                  password = 'account password',
+                  username = 'account username')
 ```
 
