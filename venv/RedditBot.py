@@ -63,10 +63,11 @@ if __name__ == '__main__':
 		# print(submission.title)
 		# r = re.compile()
 		# list(filter(r.match()))
-		for txt in myFile:
+		for txt in myList:
+			# print(txt)
 			my_regex = r"([^.]*?" + txt + "[^.]*\.)"
 			found = re.findall(my_regex, submission.title, re.IGNORECASE)
-			if(found is not None):
+			if(found):
 				print(found)
 		if any(word in submission.title for word in lineList):
 			if(insert_table(c, submission,conn)):
