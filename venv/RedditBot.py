@@ -3,7 +3,8 @@ import praw
 import NameDifference
 import sqlite3
 import time
-import threading
+# import threading
+import re
 
 def create_connection(db_file):
     try:
@@ -60,12 +61,19 @@ if __name__ == '__main__':
 
 	for submission in sub.stream.submissions(skip_existing = True):
 		# print(submission.title)
+		# r = re.compile()
+		# list(filter(r.match()))
+		for txt in myFile:
+			my_regex = r"([^.]*?" + txt + "[^.]*\.)"
+			found = re.findall(my_regex, submission.title, re.IGNORECASE)
+			if(found is not None):
+				print(found)
 		if any(word in submission.title for word in lineList):
 			if(insert_table(c, submission,conn)):
 				print(submission.title)
 				# message_person(reddit, "Dartok_sd",submission.title,submission.url)
-			if any((word in submission.title for word in myFile)):
-				message_person(reddit, "Dartok_sd", submission.title, submission.url)
+			# if any(word in submission.title for word in myFile):
+				# message_person(reddit, "Dartok_sd", submission.title, submission.url)
 		# if any((word in submission.title for word in myFile)):
 		# 	if(insert_table(c, submission, conn)):
 		# 		print(submission.title)
