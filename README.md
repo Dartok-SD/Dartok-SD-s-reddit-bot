@@ -2,7 +2,8 @@
 Creating a bot just for fun
 
 Right now all it does is it constantly checks the new section of a subreddit, and if a post contains 
-a word in the list of words then it will add it to the database and notify a user.
+a word in the list of words then it will add it to the database and notify a user. The database stores the post
+so it can check if it has posted before or not. Right now I'm working out all the issues with trying to find the correct post.
 
 
 

@@ -71,7 +71,7 @@ if __name__ == '__main__':
 				print(found)
 			# Second Check
 			if(NameDifference.isSimilar(NameDifference.parseTitle(submission.title),txt)):
-				print("Title: " + submission.title + " believed to be found")
+				print("Title: " + submission.title + " believed to be :" + txt)
 		if any(word in submission.title for word in lineList):
 			if(insert_table(c, submission,conn)):
 				print(submission.title)

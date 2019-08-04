@@ -52,6 +52,7 @@ def parseTitle(title):
 	i = 0;
 	found = False
 	wordcount = 0
+	# Poorly structured but no reason to change it
 	whatwasfound = ""
 	for word in returnTitle.split():
 		if(word.lower() == "chapter".lower()):
