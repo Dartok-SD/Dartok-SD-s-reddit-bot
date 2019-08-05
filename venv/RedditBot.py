@@ -36,9 +36,13 @@ def insert_table(cursor,submission,conn):
 		print("REPOSTED CHAPTER")
 		return False
 	
-def message_person(reddit,person,content, link):
+def message_person(reddit,person,content,link):
 	redditor = reddit.redditor(name=person)
-	redditor.message('New Manga Chapter', content + ' has just been released: ' + link)
+	redditor.message('New Manga Chapter ', content + ' has just been released: ' + link)
+	
+def message_unsure(reddit,person,content,link):
+	redditor = reddit.redditor(name=person)
+	redditor.message('I believe that a new manga chapter for: ', content + ' has just been released: ' + link)
 
 # Do I really need to remove from the database?
 def empty_db_thread(cursor):
@@ -69,9 +73,11 @@ if __name__ == '__main__':
 			found = re.findall(my_regex, submission.title, re.IGNORECASE)
 			if(found):
 				print(found)
+				message_person(reddit, "Dartok_sd", submission.title, submission.url)
 			# Second Check
 			if(NameDifference.isSimilar(NameDifference.parseTitle(submission.title),txt)):
 				print("Title: " + submission.title + " believed to be :" + txt)
+				message_unsure(reddit, "Dartok_sd", submission.title, submission.url)
 		if any(word in submission.title for word in lineList):
 			if(insert_table(c, submission,conn)):
 				print(submission.title)
