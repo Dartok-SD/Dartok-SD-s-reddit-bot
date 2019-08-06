@@ -73,11 +73,13 @@ if __name__ == '__main__':
 			found = re.findall(my_regex, submission.title, re.IGNORECASE)
 			if(found):
 				print(found)
-				message_person(reddit, "Dartok_sd", submission.title, submission.url)
+				if (insert_table(c, submission, conn)):
+					message_person(reddit, "Dartok_sd", submission.title, submission.url)
 			# Second Check
 			if(NameDifference.isSimilar(NameDifference.parseTitle(submission.title),txt)):
 				print("Title: " + submission.title + " believed to be :" + txt)
-				message_unsure(reddit, "Dartok_sd", submission.title, submission.url)
+				if (insert_table(c, submission, conn)):
+					message_unsure(reddit, "Dartok_sd", submission.title, submission.url)
 		if any(word in submission.title for word in lineList):
 			if(insert_table(c, submission,conn)):
 				print(submission.title)
